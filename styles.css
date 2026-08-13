@@ -74,6 +74,23 @@ img {
   font-weight: 600;
 }
 
+.nav-links a.active {
+  color: var(--red);
+  font-weight: 800;
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red), #ff6b6b);
+  border-radius: 4px;
+}
+
 .button-primary,
 .button-secondary {
   display: inline-flex;
@@ -287,6 +304,26 @@ img {
 
 .cta-card p {
   color: rgba(255, 255, 255, 0.9);
+}
+
+/* Footer styles for consistency */
+.site-footer {
+  padding: 28px 0 0;
+  margin-top: 40px;
+  border-top: 1px solid var(--gray-300);
+}
+.site-footer .site-footer-inner {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  color: var(--gray-600);
+  font-size: 0.95rem;
+}
+.site-footer p {
+  margin: 0;
+}
+.site-footer p + p {
+  margin-top: 6px;
 }
 
 @media (max-width: 960px) {
