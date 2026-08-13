@@ -326,6 +326,61 @@ img {
   margin-top: 6px;
 }
 
+/* Contact form styles */
+.contact-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+.form-field label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--gray-900);
+}
+.form-field input,
+.form-field textarea {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--gray-300);
+  background: white;
+  font-size: 1rem;
+  color: var(--gray-900);
+}
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  box-shadow: 0 6px 18px rgba(38, 50, 56, 0.08);
+  border-color: var(--red);
+}
+
+@media (max-width: 640px) {
+  .contact-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form feedback */
+.field-error {
+  color: var(--red);
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+.form-message {
+  margin-top: 14px;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+.form-message.success {
+  color: #0b8457; /* greenish */
+}
+.form-message.error {
+  color: var(--red);
+}
+
 @media (max-width: 960px) {
   .hero {
     grid-template-columns: 1fr;

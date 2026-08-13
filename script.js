@@ -51,4 +51,79 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+    // Contact form validation and submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      const endpoint = contactForm.dataset.endpoint || '';
+      const msgEl = document.getElementById('formMessage');
+
+      function showFieldError(field, text) {
+        let err = field.parentElement.querySelector('.field-error');
+        if (!err) {
+          err = document.createElement('div');
+          err.className = 'field-error';
+          field.parentElement.appendChild(err);
+        }
+        err.textContent = text;
+      }
+
+      function clearFieldError(field) {
+        const err = field.parentElement.querySelector('.field-error');
+        if (err) err.remove();
+      }
+
+      function validateEmail(email) {
+        return /^[\w-.+]+@[\w-]+\.[a-zA-Z]{2,}$/.test(email);
+      }
+
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (msgEl) { msgEl.textContent = ''; msgEl.className = 'form-message'; }
+
+        const name = contactForm.name;
+        const email = contactForm.email;
+        const message = contactForm.message;
+
+        let valid = true;
+        [name, email, message].forEach((f) => clearFieldError(f));
+
+        if (!name.value.trim()) { showFieldError(name, 'Моля въведете име.'); valid = false; }
+        if (!email.value.trim() || !validateEmail(email.value.trim())) { showFieldError(email, 'Моля въведете валиден имейл.'); valid = false; }
+        if (!message.value.trim() || message.value.trim().length < 10) { showFieldError(message, 'Съобщението трябва да е поне 10 символа.'); valid = false; }
+
+        if (!valid) return;
+
+        // If endpoint is still placeholder, instruct user to replace it
+        if (endpoint.includes('your-form-id') || endpoint.includes('{')) {
+          if (msgEl) {
+            msgEl.classList.add('error');
+            msgEl.textContent = 'Формата е валидна, но не е конфигуриран ендпойнт. Заменете data-endpoint в формата с вашия Formspree URL.';
+          }
+          return;
+        }
+
+        // submit via fetch as JSON
+        try {
+          if (msgEl) { msgEl.textContent = 'Изпращане...'; }
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ name: name.value.trim(), email: email.value.trim(), message: message.value.trim() })
+          });
+
+          if (res.ok) {
+            if (msgEl) { msgEl.classList.add('success'); msgEl.textContent = 'Благодарим ви — съобщението е изпратено.'; }
+            contactForm.reset();
+          } else {
+            let text = 'Възникна грешка при изпращане. Моля опитайте по-късно.';
+            try { const data = await res.json(); if (data && data.error) text = data.error; } catch (_) {}
+            if (msgEl) { msgEl.classList.add('error'); msgEl.textContent = text; }
+          }
+        } catch (err) {
+          if (msgEl) { msgEl.classList.add('error'); msgEl.textContent = 'Неуспешно свързване със сървъра.'; }
+          console.error('Contact form submit error', err);
+        }
+      });
+    }
 });

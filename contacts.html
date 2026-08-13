@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact DIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html" aria-label="Dio начална страница">
+          <span class="brand-mark">D</span>
+          <span class="brand-text">dio</span>
+        </a>
+        <nav class="nav-links" aria-label="Основна навигация">
+          <a href="#products">Продукти</a>
+          <a href="services.html">Услуги</a>
+          <a href="about.html">За нас</a>
+          <a href="contacts.html" class="active">Контакт</a>
+        </nav>
+        <a class="button-primary small" href="contacts.html">Поръчай сега</a>
+      </header>
+
+      <main id="contact-page">
+        <section class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Контакт</p>
+            <h2>Contact DIO</h2>
+            <p class="lead">Свържете се с нас за въпроси, поръчки или партньорства.</p>
+          </div>
+
+          <div class="product-grid">
+            <article class="product-card">
+              <h3>Контактна информация</h3>
+              <p>Email: <strong>hello@dio.bg</strong></p>
+              <p>Телефон: <strong>+359 88 000 0000</strong></p>
+              <p>Адрес: София, България</p>
+            </article>
+
+            <article class="product-card">
+              <h3>Социални мрежи</h3>
+              <p>Facebook: <a href="#">facebook.com/dio</a></p>
+              <p>Instagram: <a href="#">instagram.com/dio</a></p>
+              <p>Twitter: <a href="#">twitter.com/dio</a></p>
+            </article>
+
+            <article class="product-card" style="grid-column: 1 / -1;">
+              <h3>Изпратете съобщение</h3>
+              <form id="contactForm" class="contact-form" action="#" method="post" data-endpoint="https://formspree.io/f/your-form-id">
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="name">Име</label>
+                    <input id="name" name="name" type="text" placeholder="Вашето име" required />
+                  </div>
+                  <div class="form-field">
+                    <label for="email">Имейл</label>
+                    <input id="email" name="email" type="email" placeholder="you@example.com" required />
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label for="message">Съобщение</label>
+                  <textarea id="message" name="message" rows="6" placeholder="Вашето съобщение" required></textarea>
+                </div>
+                <div style="margin-top:16px;">
+                  <button class="button-primary" type="submit">Изпрати</button>
+                </div>
+                <div id="formMessage" class="form-message" aria-live="polite"></div>
+              </form>
+            </article>
+          </div>
+        </section>
+
+        <footer class="site-footer" aria-label="Футър">
+          <div class="site-footer-inner">
+            <p>© Dio — Всички права запазени</p>
+            <p>hello@dio.bg • София, България</p>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
